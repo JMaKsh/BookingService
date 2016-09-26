@@ -1,6 +1,6 @@
 package com.gmail.maxgorinshteyn.Service;
 
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userService.getUserByLogin(login);
+        Client user = userService.getUserByLogin(login);
         if (user == null)
             throw new UsernameNotFoundException(login + " not found");
 

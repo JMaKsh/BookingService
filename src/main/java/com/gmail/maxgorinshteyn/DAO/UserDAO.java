@@ -1,11 +1,11 @@
 package com.gmail.maxgorinshteyn.DAO;
 
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 
 import java.util.List;
 
 public interface UserDAO {
-    User findUserByLogin(String login);
-    List<User> allUserList();
-    void addUserToDB(User user);
+    Client findUserByLogin(String login);
+    List<Client> allUserList();
+    void addUserToDB(Client user);
 }

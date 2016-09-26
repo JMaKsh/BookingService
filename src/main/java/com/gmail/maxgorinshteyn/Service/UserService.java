@@ -1,7 +1,7 @@
 package com.gmail.maxgorinshteyn.Service;
 
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 
 public interface UserService {
-    User getUserByLogin(String login);
+    Client getUserByLogin(String login);
 }

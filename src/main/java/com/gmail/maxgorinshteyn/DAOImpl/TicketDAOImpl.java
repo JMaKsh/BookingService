@@ -2,7 +2,7 @@ package com.gmail.maxgorinshteyn.DAOImpl;
 
 import com.gmail.maxgorinshteyn.DAO.TicketDAO;
 import com.gmail.maxgorinshteyn.Entities.Ticket;
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,7 +47,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public List<Ticket> ticketListForUser(User user, boolean status) {
+    public List<Ticket> ticketListForUser(Client user, boolean status) {
         long userId = user.getId();
         Query query;
         query = entityManager.createQuery("SELECT t FROM Ticket t where t.user.id = :userId AND t.status= :status", Ticket.class);

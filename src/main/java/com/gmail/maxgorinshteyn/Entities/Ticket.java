@@ -2,13 +2,12 @@ package com.gmail.maxgorinshteyn.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket {
     private long id;
-    private User user;
+    private Client user;
     private Schedule schedule;
     private LocalDate createdDate;
     private boolean status;
@@ -16,7 +15,7 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(User user, Schedule schedule, LocalDate createdDate, boolean status) {
+    public Ticket(Client user, Schedule schedule, LocalDate createdDate, boolean status) {
         this.user = user;
         this.schedule = schedule;
         this.createdDate = createdDate;
@@ -36,11 +35,11 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Client user) {
         this.user = user;
     }
 

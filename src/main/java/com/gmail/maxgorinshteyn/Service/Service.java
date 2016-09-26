@@ -1,10 +1,9 @@
 package com.gmail.maxgorinshteyn.Service;
 
 import com.gmail.maxgorinshteyn.DAO.*;
-import com.gmail.maxgorinshteyn.Entities.Departure;
 import com.gmail.maxgorinshteyn.Entities.Schedule;
 import com.gmail.maxgorinshteyn.Entities.Ticket;
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,12 +49,12 @@ public class Service {
     }
 
     @Transactional(readOnly = true)
-    public List<User> listAllUsers() {
+    public List<Client> listAllUsers() {
         return userDAO.allUserList();
     }
 
     @Transactional
-    public void addNewUser(User user) {
+    public void addNewUser(Client user) {
         userDAO.addUserToDB(user);
     }
 
@@ -65,7 +64,7 @@ public class Service {
     }
 
     @Transactional(readOnly = true)
-    public List<Ticket> listTicketForUser(User user, boolean status) {
+    public List<Ticket> listTicketForUser(Client user, boolean status) {
         return ticketDAO.ticketListForUser(user, status);
     }
 

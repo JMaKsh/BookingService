@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Client {
     private long id;
     private String name;
     private String login;
@@ -16,10 +16,10 @@ public class User {
     private String email;
     private List<Ticket> tickets;
 
-    public User() {
+    public Client() {
     }
 
-    public User(String name, String login, String password, UserRole role, String email) {
+    public Client(String name, String login, String password, UserRole role, String email) {
         this.name = name;
         this.login = login;
         this.password = password;

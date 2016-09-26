@@ -1,7 +1,7 @@
 package com.gmail.maxgorinshteyn.Service;
 
 import com.gmail.maxgorinshteyn.DAO.UserDAO;
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService{
     UserDAO userDAO;
 
     @Override
-    public User getUserByLogin(String login) {
+    public Client getUserByLogin(String login) {
         return userDAO.findUserByLogin(login);
     }
 }
