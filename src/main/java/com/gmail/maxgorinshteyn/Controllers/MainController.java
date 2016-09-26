@@ -129,7 +129,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/add_new_ticket", method = RequestMethod.POST)
-    public String addUser(@RequestParam(value = "id", required = false) long id, Model model) {
+    public String addTicket(@RequestParam(value = "id", required = false) long id, Model model) {
         org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getUserByLogin(u.getUsername());
         Schedule schedule = bookingService.findScheduleById(id);
