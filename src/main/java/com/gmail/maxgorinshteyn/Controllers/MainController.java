@@ -2,7 +2,7 @@ package com.gmail.maxgorinshteyn.Controllers;
 
 import com.gmail.maxgorinshteyn.Entities.Schedule;
 import com.gmail.maxgorinshteyn.Entities.Ticket;
-import com.gmail.maxgorinshteyn.Entities.User;
+import com.gmail.maxgorinshteyn.Entities.Client;
 import com.gmail.maxgorinshteyn.Entities.enums.UserRole;
 import com.gmail.maxgorinshteyn.Service.Service;
 import com.gmail.maxgorinshteyn.Service.UserService;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,8 +87,8 @@ public class MainController {
 
     @RequestMapping(value = "/userpage", method = RequestMethod.GET)
     public String userPage(Model model) {
-        org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByLogin(u.getUsername());
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client user = userService.getUserByLogin(u.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("ticket", bookingService.listTicketForUser(user, false));
         return "userpage";
@@ -110,8 +111,8 @@ public class MainController {
             return "registration";
         }
 
-        List<User> users = bookingService.listAllUsers();
-        for (User userDB : users) {
+        List<Client> users = bookingService.listAllUsers();
+        for (Client userDB : users) {
             if (userDB.getLogin().equals(login)) {
                 model.addAttribute("code", "520");
                 return "registration";
@@ -123,15 +124,15 @@ public class MainController {
         }
 
         String encodePassword = shaPasswordEncoder.encodePassword(password, null);
-        User newUser = new User(name, login, encodePassword, UserRole.ROLE_USER, email);
+        Client newUser = new Client(name, login, encodePassword, UserRole.ROLE_USER, email);
         bookingService.addNewUser(newUser);
         return "login";
     }
 
     @RequestMapping(value = "/add_new_ticket", method = RequestMethod.POST)
     public String addTicket(@RequestParam(value = "id", required = false) long id, Model model) {
-        org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByLogin(u.getUsername());
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client user = userService.getUserByLogin(u.getUsername());
         Schedule schedule = bookingService.findScheduleById(id);
         Ticket ticket = new Ticket(user, schedule, LocalDate.now(), false);
         bookingService.addNewTicket(ticket);
@@ -143,8 +144,8 @@ public class MainController {
         if (checkedArray != null) {
             bookingService.deleteTicket(checkedArray);
         }
-        org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByLogin(u.getUsername());
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client user = userService.getUserByLogin(u.getUsername());
         model.addAttribute("ticket", bookingService.listTicketForUser(user, false));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -159,8 +160,8 @@ public class MainController {
 
     @RequestMapping(value = "/submitpage", method = RequestMethod.GET)
     public String submitPage(Model model) {
-        org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByLogin(u.getUsername());
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client user = userService.getUserByLogin(u.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("subticket", bookingService.listTicketForUser(user, true));
         return "submitpage";
