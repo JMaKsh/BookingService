@@ -5,173 +5,173 @@
 <html lang="en">
 <head>
     <title>Registration</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
-            integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="../../resources/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
-<body style="height: 100%;background: url(../../resources/img/background.jpg) no-repeat center center fixed">
 
-        <div class="container" style="background-color:#6957ff;height:60px;margin-bottom: 50px">
-            <div class="row">
-                <div class="col-xs-2 col-md-2">
-                    <c:url value="/" var="indexURL"/>
-                    <a href="${indexURL}">
-                        <div style="padding-top:15px;color: #FFFAFA"> HOME</div>
-                    </a>
-                </div>
-                <div class="col-xs-2 col-md-2">
-                    <c:url value="/submitpage" var="submitURL"/>
-                    <a href="${submitURL}">
-                        <div style="text-align: right;padding-top:15px;color: #FFFAFA"> My tickets</div>
-                    </a>
-                </div>
-                <div class=" col-xs-2 col-md-2 ">
-                    <c:url value="/userpage" var="userpageUrl"/>
-                    <a href="${userpageUrl}">
-                        <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Cabinet</div>
-                    </a>
-                </div>
-                <sec:authorize access="!isAuthenticated()">
-                    <div class=" col-xs-2 col-md-2 ">
-                        <c:url value="/login" var="loginUrl"/>
-                        <a href="${loginUrl}">
-                            <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Login</div>
-                        </a>
-                    </div>
-                    <div class=" col-xs-2 col-md-2 ">
-                        <c:url value="/registration" var="rigistUrl"/>
-                        <a href="${rigistUrl}">
-                            <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Registration</div>
-                        </a>
 
-                    </div>
-                </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
-                    <div class=" col-xs-2 col-md-2 ">
-                        <c:url value="/logout" var="logoutUrl"/>
-                        <a href="${logoutUrl}">
-                            <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> LogOut</div>
-                        </a>
-                    </div>
-                </sec:authorize>
+<body>
+<main>
+    <div class="header_bg"><!-- start header -->
+        <div class="container">
+            <div class="row header">
+                <nav class="navbar" role="navigation">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="/"><img src="../../resources/img/logo.png" alt=""
+                                                                  class="img-responsive"/> </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="menu nav navbar-nav ">
+                                <c:url value="/" var="indexURL"/>
+                                <li><a href="${indexURL}">home</a></li>
+                                <c:url value="/submitpage" var="submitURL"/>
+                                <li><a href="${submitURL}">my tickets</a></li>
+                                <c:url value="/userpage" var="userpageUrl"/>
+                                <li><a href="${userpageUrl}">my cabinet</a></li>
+
+                                <sec:authorize access="!isAuthenticated()">
+                                    <c:url value="/login" var="loginUrl"/>
+                                    <li><a href="${loginUrl}">sign in</a></li>
+
+                                    <c:url value="/registration" var="rigistUrl"/>
+                                    <li><a href="${rigistUrl}">registration</a></li>
+                                </sec:authorize>
+                                <sec:authorize access="isAuthenticated()">
+                                    <c:url value="/logout" var="logoutUrl"/>
+                                    <li><a href="${logoutUrl}">logout</a></li>
+                                </sec:authorize>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
             </div>
         </div>
-    <div class="container">
-
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <p class="text-center"><h2><b>Use the form below to register</b></h2></p>
-                <form class="form-horizontal" action="/add_new_user" method="POST">
-                    <input type="text" id="username" name="name" placeholder="Your fullname" class="input-lg form-control" autocomplete="off" required>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p><b>Enter your fullname</b></p>
-                        </div>
-                    </div>
-                    <input type="text" id="login" name="login" placeholder="Your login" class="input-lg form-control" autocomplete="off" required>
-                    <div class="row">
-                        <c:if test="${code eq 520}">
-                            <div style="color: crimson"><p><b>This login is already used. Choose another one</b></p></div>
-                        </c:if>
-                        <div class="col-sm-12">
-                            <p><b>Enter your login. It needs for autorization</b></p>
-                        </div>
-                    </div>
-                    <input type="text" id="email" name="email" placeholder="Your e-mail" class="input-lg form-control" required>
-                    <div class="row">
-                        <c:if test="${code eq 530}">
-                            <div style="color: crimson"><p><b>This e-mail is already used. Choose another one</b></p></div>
-                        </c:if>
-                        <div class="col-sm-12">
-                            <p><b>Enter your e-mail</b></p>
-                        </div>
-                    </div>
-                    <input type="password" class="input-lg form-control" name="password" id="password1" placeholder="Password" autocomplete="off" required>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p><b>Enter your password</b></p>
-                        </div>
-                    </div>
-                    <input type="password" class="input-lg form-control" name="confirmPassword" id="password2" placeholder="Confirm Password" autocomplete="off" required>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <c:if test="${code eq 510}">
-                                <div style="color: crimson"><p><b>Passwords non Match!</b></p></div>
-                            </c:if>
-                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> <b>Passwords Match</b>
-                        </div>
-                    </div>
-                    <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Adding new user..." value="Submit">
-                </form>
-            </div>
-        </div><
     </div>
-        <div class="footer">
-            <div class="container clearfix" style="height: auto;background-color:#708090;margin-top: 50px">
-                <div class="footetColumn pull-left">
-                    <div class="footetColumn header">
-                        <c:url value="/" var="indexURL"/>
-                        <a href="${indexURL}">
-                            <div style="padding-top:15px;color: #FFFAFA"> HOME</div>
-                        </a></div>
-                    <div class="footetColumn header">
-                        <c:url value="/submitpage" var="submitUrl"/>
-                        <a href="${submitUrl}">
-                            <div style="padding-top: 15px;color: #FFFAFA"> My tickets</div>
-                        </a>
-                    </div>
-                    <div class="footetColumn header">
-                        <c:url value="/userpage" var="userpageUrl"/>
-                        <a href="${userpageUrl}">
-                            <div style="padding-top: 15px;color: #FFFAFA"> Cabinet</div>
-                        </a>
-                    </div>
-                    <sec:authorize access="!isAuthenticated()">
-                        <div class="footetColumn header">
-                            <c:url value="/login" var="loginUrl"/>
-                            <a href="${loginUrl}">
-                                <div style="padding-top: 15px;color: #FFFAFA"> Login</div>
-                            </a>
+    <div class="content">
+        <div class="register_panel">
+            <h3>Use the form below to register</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-lg-6 col-lg-offset-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Registration</h3>
+                            </div>
+                            <form class="form-horizontal" action="/add_new_user" method="POST">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-md-offset-3 col-lg-offset-3 col-xl-offset-3 login-box">
+                                            <div class="input-group">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-user"></span></span>
+                                                <input type="text" class="form-control" name="name"
+                                                       placeholder="Your fullname"
+                                                       required
+                                                       autofocus/>
+                                            </div>
+                                            <div class="input-group">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-user"></span></span>
+                                                <input type="text" class="form-control" name="login"
+                                                       placeholder="Your login"
+                                                       required/>
+                                            </div>
 
-                            <c:url value="/registration" var="rigistUrl"/>
-                            <a href="${rigistUrl}">
-                                <div style=";padding-top: 15px;color: #FFFAFA"> Registration</div>
-                            </a>
+                                            <c:if test="${code eq 520}">
+                                                <div style="color: crimson"><p><b>This login is already used. Choose
+                                                    another
+                                                    one</b></p>
+                                                </div>
+                                            </c:if>
+
+
+                                            <div class="input-group">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-envelope"></span></span>
+                                                <input type="text" class="form-control" name="email"
+                                                       placeholder="Your e-mail"
+                                                       required/>
+                                            </div>
+
+                                            <c:if test="${code eq 530}">
+                                                <div style="color: crimson"><p><b>This e-mail is already used. Choose
+                                                    another one</b></p>
+                                                </div>
+                                            </c:if>
+
+                                            <div class="input-group">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-lock"></span></span>
+                                                <input type="password" class="form-control" name="password"
+                                                       id="password1"
+                                                       placeholder="Password" required/>
+                                            </div>
+                                            <div class="input-group">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-lock"></span></span>
+                                                <input type="password" class="form-control" name="confirmPassword"
+                                                       id="password2" placeholder="Confirm password" required/>
+                                            </div>
+
+                                            <c:if test="${code eq 510}">
+                                                <div style="color: crimson"><p><b>Passwords non Match!</b></p></div>
+                                            </c:if>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-md-offset-3 col-lg-offset-3 col-xl-offset-3 ">
+                                            <button type="submit" class="btn-labeled btn-success">
+                                                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                        <div class="footetColumn header">
-                            <c:url value="/logout" var="logoutUrl"/>
-                            <a href="${logoutUrl}">
-                                <div style="padding-top: 15px;color: #FFFAFA"> LogOut</div>
-                            </a>
-                        </div>
-                    </sec:authorize>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</main>
+
+<div class="footer_btm"><!-- start footer_btm -->
+    <div class="container">
+        <div class="row  footer1">
+            <div class="col-md-3">
+                <div class="soc_icons">
+                    <ul class="list-unstyled">
+                        <li><a class="icon1" href="https://www.facebook.com"></a></li>
+                        <li><a class="icon5" href="https://www.linkedin.com/in/MaksymGorinshteyn"></a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 copy">
+                <p class="link text-right"><span>BookingService - fast and easy planning your trip</span></p>
+            </div>
+            <div class="col-md-5 copy">
+                <p class="link text-right"><span>&#169; All rights reserved | 2016 Maksym Gorinshteyn</span></p>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-    $("input[type=password]").keyup(function(){
-            if($("#password1").val() == $("#password2").val()){
-            $("#pwmatch").removeClass("glyphicon-remove");
-            $("#pwmatch").addClass("glyphicon-ok");
-            $("#pwmatch").css("color","#00A41E");
-        }else{
-            $("#pwmatch").removeClass("glyphicon-ok");
-            $("#pwmatch").addClass("glyphicon-remove");
-            $("#pwmatch").css("color","#FF0004");
-        }
-    });
-</script>
 </body>
 </html>

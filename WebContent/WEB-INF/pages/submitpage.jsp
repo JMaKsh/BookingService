@@ -1,164 +1,158 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <html>
 <head>
-    <title>Authorization</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <title>UserPage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
+            integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css"/>
+    <link href="../../resources/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 </head>
-<body style="background: url(../../resources/img/background.jpg) no-repeat center center fixed">
+<body>
 
-<div class="container" style="background-color:#6957ff;height:60px;margin-bottom: 50px">
-    <div class="row">
-        <div class="col-xs-2 col-md-2">
-            <c:url value="/" var="indexURL"/>
-            <a href="${indexURL}">
-                <div style="padding-top:15px;color: #FFFAFA"> HOME</div>
-            </a>
-        </div>
-        <div class="col-xs-2 col-md-2">
-            <c:url value="/submitpage" var="submitURL"/>
-            <a href="${submitURL}">
-                <div style="text-align: right;padding-top:15px;color: #FFFAFA"> My tickets</div>
-            </a>
-        </div>
-        <div class=" col-xs-2 col-md-2 ">
-            <c:url value="/userpage" var="userpageUrl"/>
-            <a href="${userpageUrl}">
-                <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Cabinet</div>
-            </a>
-        </div>
-        <sec:authorize access="!isAuthenticated()">
-            <div class=" col-xs-2 col-md-2 ">
-                <c:url value="/login" var="loginUrl"/>
-                <a href="${loginUrl}">
-                    <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Login</div>
-                </a>
-            </div>
-            <div class=" col-xs-2 col-md-2 ">
-                <c:url value="/registration" var="rigistUrl"/>
-                <a href="${rigistUrl}">
-                    <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> Registration</div>
-                </a>
+<div class="header_bg"><!-- start header -->
+    <div class="container">
+        <div class="row header">
+            <nav class="navbar" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="../../resources/img/logo.png" alt=""
+                                                              class="img-responsive"/> </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="menu nav navbar-nav ">
+                            <c:url value="/" var="indexURL"/>
+                            <li><a href="${indexURL}">home</a></li>
+                            <c:url value="/submitpage" var="submitURL"/>
+                            <li><a href="${submitURL}">my tickets</a></li>
+                            <c:url value="/userpage" var="userpageUrl"/>
+                            <li><a href="${userpageUrl}">my cabinet</a></li>
 
-            </div>
-        </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-            <div class=" col-xs-2 col-md-2 ">
-                <c:url value="/logout" var="logoutUrl"/>
-                <a href="${logoutUrl}">
-                    <div style="text-align: right;padding-top: 15px;color: #FFFAFA"> LogOut</div>
-                </a>
-            </div>
-        </sec:authorize>
+                            <sec:authorize access="!isAuthenticated()">
+                                <c:url value="/login" var="loginUrl"/>
+                                <li><a href="${loginUrl}">sign in</a></li>
+
+                                <c:url value="/registration" var="rigistUrl"/>
+                                <li><a href="${rigistUrl}">registration</a></li>
+                            </sec:authorize>
+                            <sec:authorize access="isAuthenticated()">
+                                <c:url value="/logout" var="logoutUrl"/>
+                                <li><a href="${logoutUrl}">logout</a></li>
+                            </sec:authorize>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
     </div>
 </div>
+<main>
+    <c:choose>
+        <c:when test="${ not empty subticket}">
 
-<c:choose>
-    <c:when test="${ not empty subticket}">
+            <c item="${username}" var="user"></c>
+            <div class="container cabinet">
+                <h3>Thank you for planning your travel with our service!</h3>
 
-        <c item="${username}" var="user"></c>
+                <h3><b>Our manager will contact you shortly</b></h3>
 
-    <div align="center">
-        <p><h3>Thank you for planning yor travel with our service!</h3></p>
-        <p><h3>Enjoy your trip!</h3></p>
-    </div>
-<c item="${username}" var="user"></c>
-<div align="center">
-    <p><h2>Your booked tickets, ${user.name}:</h2></p>
-</div>
-<div class="container" style="margin-bottom: 50px;margin-top:30px; min-height: 100%">
+                <c:forEach items="${subticket}" var="subticket">
+                    <div class="row">
+                        <div class="col-xs-11 col-sm-11 col-md-7 col-lg-7 col-xl-7 col-md-offset-2 col-lg-offset-2 col-xl-offset-2 ticket-info">
+                            <table class="book-tc table-responsive  table-condensed cf">
 
-    <table class="table table-striped table-responsive table-bordered table-hover" style="border: solid 3px;" >
-        <thead>
-        <tr style="border: solid 3px; background-color: #c7ddef">
-            <th class="text-center"><b>Date of BOOKING</b></th>
-            <th class="text-center"><b>VEHICLE</b></th>
-            <th class="text-center"><b>CARRIER</b></th>
-            <th class="text-center"><b>FROM</b></th>
-            <th class="text-center"><b>TO</b></th>
-            <th class="text-center"><b>Date</b></th>
-            <th class="text-center"><b>Time</b></th>
-            <th class="text-center"><b>DISTANCE</b></th>
-            <th class="text-center"><b>TRIP DURATION</b></th>
-            <th class="text-center"><b>Price</b></th>
+                                <tr>
+                                    <td><u> Order # <b>00554${subticket.id}</b></u></td>
+                                    <td> Date of booking: <u>${subticket.createdDate}</u></td>
 
-        </tr>
-        </thead>
+                                </tr>
+                                <tr>
+                                    <td> Customer:</td>
+                                    <td> <b>${user.name}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>destination:
+                                    </td>
+                                    <td><b>${subticket.schedule.departure.fullname}
+                                        - ${subticket.schedule.arrival.fullName}</b></td>
+                                </tr>
 
-        <c:forEach items="${subticket}" var="subticket">
-            <tr style="border: solid 3px;background-color: #c7ddef">
-                <td class="text-center">${subticket.createdDate}</td>
-                <td class="text-center">${subticket.schedule.carrier.vehicle.name}</td>
-                <td class="text-center">${subticket.schedule.carrier.fullname}</td>
-                <td class="text-center">${subticket.schedule.departure.fullname}</td>
-                <td class="text-center">${subticket.schedule.arrival.fullName}</td>
-                <td class="text-center">${subticket.schedule.date}</td>
-                <td class="text-center">${subticket.schedule.time}</td>
-                <td class="text-center">${subticket.schedule.distance}</td>
-                <td class="text-center">${subticket.schedule.duration}</td>
-                <td class="text-center">${subticket.schedule.price}</td>
+                                <tr>
+                                    <td>departure time:
+                                    </td>
+                                    <td><b>${subticket.schedule.time} ${subticket.schedule.date}</b></td>
+                                </tr>
 
-            </tr>
-        </c:forEach>
+                                <tr>
+                                    <td><b>${subticket.schedule.carrier.fullname}</b>
+                                    </td>
+                                    <td>
+                                        <div class="price-f"><b>${subticket.schedule.price} UAH</b></div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
 
 
-    </table>
-    </div>
-</c:when>
-<c:otherwise>
-    <div align="center">
-        <p><h1> There're no your booked tickets.</h1></p>
-    </div>
-</c:otherwise>
-</c:choose>
-<div class="footer" style="position: absolute;bottom: 0px; padding-left: 100px">
-    <div class="container clearfix" style="height: auto;background-color:#708090;margin-top: 50px">
-        <div class="footetColumn pull-left">
-            <div class="footetColumn header">
-                <c:url value="/" var="indexURL"/>
-                <a href="${indexURL}">
-                    <div style="padding-top:15px;color: #FFFAFA"> HOME</div>
-                </a></div>
-            <div class="footetColumn header">
-                <c:url value="/submitpage" var="submitUrl"/>
-                <a href="${submitUrl}">
-                    <div style="padding-top: 15px;color: #FFFAFA"> My tickets</div>
-                </a>
+                    </div>
+                </c:forEach>
             </div>
-            <div class="footetColumn header">
-                <c:url value="/userpage" var="userpageUrl"/>
-                <a href="${userpageUrl}">
-                    <div style="padding-top: 15px;color: #FFFAFA"> Cabinet</div>
-                </a>
-            </div>
-            <sec:authorize access="!isAuthenticated()">
-                <div class="footetColumn header">
-                    <c:url value="/login" var="loginUrl"/>
-                    <a href="${loginUrl}">
-                        <div style="padding-top: 15px;color: #FFFAFA"> Login</div>
-                    </a>
+            <div class = "container cabinet">
 
-                    <c:url value="/registration" var="rigistUrl"/>
-                    <a href="${rigistUrl}">
-                        <div style=";padding-top: 15px;color: #FFFAFA"> Registration</div>
-                    </a>
+                <h2><b>Enjoy your trip!</b></h2>
+            </div>
+
+
+
+        </c:when>
+        <c:otherwise>
+            <div class="row no_ticket">
+                <p>
+                <h1> There're no booked tickets.</h1>
+            </div>
+        </c:otherwise>
+    </c:choose>
+    <div class="clearfix"></div>
+
+</main>
+<div class="footer_btm"><!-- start footer_btm -->
+    <div class="container">
+        <div class="row  footer1">
+            <div class="col-md-3">
+                <div class="soc_icons">
+                    <ul class="list-unstyled">
+                        <li><a class="icon1" href="https://www.facebook.com"></a></li>
+                        <li><a class="icon5" href="https://www.linkedin.com/in/MaksymGorinshteyn"></a></li>
+
+                    </ul>
                 </div>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-                <div class="footetColumn header">
-                    <c:url value="/logout" var="logoutUrl"/>
-                    <a href="${logoutUrl}">
-                        <div style="padding-top: 15px;color: #FFFAFA"> LogOut</div>
-                    </a>
-                </div>
-            </sec:authorize>
+            </div>
+            <div class="col-md-4 copy">
+                <p class="link text-right"><span>BookingService - fast and easy planning your trip</span></p>
+            </div>
+            <div class="col-md-5 copy">
+                <p class="link text-right"><span>&#169; All rights reserved | 2016 Maksym Gorinshteyn</span></p>
+            </div>
         </div>
     </div>
 </div>
-
 
 </body>
+
 </html>
